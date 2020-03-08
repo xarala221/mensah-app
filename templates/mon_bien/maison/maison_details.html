@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+<!--  -->
+{% block content %}
+
+{% if maison %}
+<div class="mt-4 mb-4 ml-4 mr-4">
+<div class="row">
+  <div class="col-md-6">
+  
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      {% if maison.photoM1 %}
+      <img class="d-block w-100" src="{{maison.photoM1.url}}" alt="First slide">
+      {% else %}
+      <img class="d-block w-100" src="https://meropro.com/wp-content/uploads/2019/05/4.jpg" alt="First slide">
+      {% endif %}
+    </div>
+    <div class="carousel-item" >
+    {% if maison.photoM2 %}
+      <img class="d-block w-100" src="{{maison.photoM2.url}}" alt="Second slide">
+    {% else %}
+      <img class="d-block w-100" src="https://meropro.com/wp-content/uploads/2019/05/4.jpg" alt="Second slide">
+    {% endif %}
+    </div>
+    <div class="carousel-item" >
+    {% if maison.photoM3 %}
+      <img class="d-block w-100" src="{{maison.photoM3.url}}" alt="Third slide">
+    {% else %}
+      <img class="d-block w-100" src="https://meropro.com/wp-content/uploads/2019/05/4.jpg" alt="Third slide">   
+    {% endif %}
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  </div>
+</div>
+
+
+
+  <div class="col-md-6">
+    <div class="card">
+  <div class="card-header">
+    <h2 class="text-center">   Maison n°{{maison.numM}}</h2>
+  </div>
+  <div class="card-body">
+    <h4 class=" text-center">{{maison.nomMaison}}</h4>
+    <h5 class=" text-center">{{maison.numRueM}} {{maison.adresseM}} {{maison.codepostal}} {{maison.villeM}} </h5>
+    
+    <p class=text-center><a href="{% url 'u_d_m' maison.numM %}" class="btn btn-primary badge-pill btn-lg">Modifier</a>
+    <!-- la dépense est partagé sur les logements de la maison. donc obligation que logements != None  -->
+    {% if logements %}
+    <a href="{% url 'maison_depense' maison.numM %}" class="btn btn-danger badge-pill btn-lg">Saisir une depense</a>
+    {% endif %}
+     </p>
+  </div>
+</div>
+
+  </div>
+    </div>
+
+</div>
+
+{% endif %}
+
+
+{% if logements %}
+<div class="card-body">
+<p class="text-left"><a href="{% url 'new_logement' maison.numM %}" class="btn btn-primary btn-sm mt-2">Ajouter un logement</a></p> 
+  <h2 class="card-title text-center">Logements</h2>
+  <table class="table table-dark table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Type</th>
+        <th scope="col">Superficie</th>
+        <th scope="col">loyer</th>
+        <th scope="text-right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for logement in logements %}
+      <tr>
+        <th>{{logement.numLogement}}</th>
+        <td>{{logement.typeL}}</td>
+        <td>{{logement.superficie}}</td>
+        <td>{{logement.loyer}}€</td>
+        <td class="text-right">
+          <a href="{% url 'detaillogements' maison.numM logement.numLogement %}" class="btn btn-primary badge-pill" style="width:80px;">Voir</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% else %}
+
+          <div class="card text-center mt-1" >
+            <div class="card-body">
+
+              <h4 class="card-subtitle mb-2">Aucun logement n'a été enregistré</h4>
+              <p class="text-center"><a href="{% url 'new_logement' maison.numM %}" class="btn btn-primary btn-lg">Ajouter un logement</a>           
+            </div>
+          </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Real State</title>
+  </head>
+  <body id="loginBody">
+    
+  <!-- start nav -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class ="container">
+    <a class="navbar-brand" href="{% url 'home' %}">Real State</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <!-- col auto start 
+    <div class="col-auto"-->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}"> Accueil <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">S'inscrire</a>
+        </li>        
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Se connecter</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <!-- col auto end 
+    </div>-->
+</nav>
+  <!-- End nav -->
+<div class="row mt-2">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p class="mt-2">
+     Pas encore inscris ? <a href="{% url 'register' %}">Inscrivez vous ici</a>
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
